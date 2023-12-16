@@ -1,0 +1,4 @@
+Install-Package Newtonsoft.Json
+Install-Package ScottPlot.WinForms
+Install-Package Skender.Stock.Indicators
+Install-Package System.Data.SqlClient

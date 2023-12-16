@@ -1,0 +1,63 @@
+﻿using Skender.Stock.Indicators;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Data;
+using System.Diagnostics.Metrics;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace BOT_V3.Indicators
+{
+    internal class OBV
+    {
+        public struct Result
+        {
+            public double[] OBV_6;
+            public double[] OBV_12;
+            public double[] OBV_24;
+        };
+        public static Result Calculate(DataTable gelen)
+        {
+            Collection<Quote> quotes2 = new Collection<Quote>();
+            for (int i = 0; i < gelen.Rows.Count; i++)
+            {
+                quotes2.Add(new Quote
+                {
+                    Date = Auxiliary.BinanceTimeStampToUtcDateTime((long)gelen.Rows[i]["Kline_close_time"]),
+                    Open = Convert.ToDecimal(gelen.Rows[i]["Open_price"]),
+                    Close = Convert.ToDecimal(gelen.Rows[i]["Close_price"]),
+                    Low = Convert.ToDecimal(gelen.Rows[i]["Low_price"]),
+                    High = Convert.ToDecimal(gelen.Rows[i]["High_price"]),
+                    Volume = Convert.ToDecimal(gelen.Rows[i]["Volume"]),
+                });
+            }
+            var a6 = quotes2.GetObv(smaPeriods: 6);
+            var a12 = quotes2.GetObv(smaPeriods: 12);
+            var a24 = quotes2.GetObv(smaPeriods: 24);
+
+            Result result = new Result();
+            result.OBV_6 = new double[a6.Count()];
+            result.OBV_12 = new double[a6.Count()];
+            result.OBV_24 = new double[a6.Count()];
+
+            for (int i = 0; i < a6.Count(); i++)
+            {
+                try
+                {
+#pragma warning disable CS8629 // Nullable value type may be null.
+                    result.OBV_6[i] = (double)a6.ElementAt(i).ObvSma;
+                    result.OBV_12[i] = (double)a12.ElementAt(i).ObvSma;
+                    result.OBV_24[i] = (double)a24.ElementAt(i).ObvSma;
+#pragma warning restore CS8629 // Nullable value type may be null.
+                }
+                catch (Exception ex)
+                {
+                    Auxiliary.insideCatch(ex);
+                }
+            }
+            return result;
+        }
+    }
+}

@@ -1,0 +1,43 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Grapher\GrapherForm.cs" />
+    <Compile Remove="Grapher\GrapherForm.Designer.cs" />
+    <Compile Remove="Grapher\GrapherForm_V2.cs" />
+    <Compile Remove="Grapher\GrapherForm_V2.Designer.cs" />
+    <Compile Remove="Grapher\GrapherForm_V3.cs" />
+    <Compile Remove="Grapher\GrapherForm_V3.Designer.cs" />
+    <Compile Remove="Grapher\GrapherForm_V4.cs" />
+    <Compile Remove="Grapher\GrapherForm_V4.Designer.cs" />
+    <Compile Remove="Grapher\GrapherForm_V5.cs" />
+    <Compile Remove="Grapher\GrapherForm_V5.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Remove="Grapher\GrapherForm.resx" />
+    <EmbeddedResource Remove="Grapher\GrapherForm_V2.resx" />
+    <EmbeddedResource Remove="Grapher\GrapherForm_V3.resx" />
+    <EmbeddedResource Remove="Grapher\GrapherForm_V4.resx" />
+    <EmbeddedResource Remove="Grapher\GrapherForm_V5.resx" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="ScottPlot.WinForms" Version="4.1.69" />
+    <PackageReference Include="Skender.Stock.Indicators" Version="2.5.0" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.5" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="README\" />
+  </ItemGroup>
+
+</Project>
